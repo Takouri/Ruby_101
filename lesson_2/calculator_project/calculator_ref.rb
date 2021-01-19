@@ -1,9 +1,12 @@
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
 def valid_number?(num)
-  num.to_i() != 0
+  Integer(num) rescue false
 end
 
 def operation_to_message(op)
@@ -19,7 +22,7 @@ def operation_to_message(op)
   end
 end
 
-prompt('Welcome to Calculator! Enter your name:')
+prompt(MESSAGES['welcome'])
 
 name = ''
 loop do
@@ -37,25 +40,25 @@ prompt("Welcome, #{name}")
 loop do
   number1 = ''
   loop do
-    prompt("What's the first number?")
+    prompt(MESSAGES['first_number'])
     number1 = Kernel.gets().chomp()
 
     if valid_number?(number1)
       break
     else
-      prompt('Valid numbers only please.')
+      prompt(MESSAGES['valid_num'])
     end
   end
 
   number2 = ''
   loop do
-    prompt("What's the second number?")
+    prompt(MESSAGES['second_number'])
     number2 = Kernel.gets().chomp()
 
     if valid_number?(number2)
       break
     else
-      prompt('Valid numbers only please.')
+      prompt(MESSAGES['valid_num'])
     end
   end
 
